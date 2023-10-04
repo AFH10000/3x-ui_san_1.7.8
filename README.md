@@ -18,7 +18,7 @@
 # Install & Upgrade
 
 ```
-bash <(curl -Ls https://raw.githubusercontent.com/mhsanaeiii/3x-ui/master/install.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/AFH10000/3x-ui_san_1.7.8/master/install.sh)
 ```
 
 # Install custom version
