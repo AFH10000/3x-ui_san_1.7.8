@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Check out the code
-        uses: actions/checkout@v4.0.0
+        uses: actions/checkout@v4.1.1
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3.0.0
 
@@ -27,15 +27,15 @@ jobs:
 
       - name: Docker meta
         id: meta
-        uses: docker/metadata-action@v5.0.0
+        uses: docker/metadata-action@v5.4.0
         with:
           images: ghcr.io/${{ github.repository }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v5.0.0
+        uses: docker/build-push-action@v5.1.0
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          platforms: linux/amd64, linux/arm64/v8
+          platforms: linux/amd64, linux/arm64/v8, linux/arm/v7
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

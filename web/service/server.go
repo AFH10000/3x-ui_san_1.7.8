@@ -230,7 +230,7 @@ func (s *ServerService) GetStatus(lastStatus *Status) *Status {
 
 	status.AppStats.Mem = rtm.Sys
 	status.AppStats.Threads = uint32(runtime.NumGoroutine())
-	if p.IsRunning() {
+	if p != nil && p.IsRunning() {
 		status.AppStats.Uptime = p.GetUptime()
 	} else {
 		status.AppStats.Uptime = 0
@@ -376,50 +376,13 @@ func (s *ServerService) UpdateXray(version string) error {
 		return err
 	}
 
-	downloadFile := func(fileName string, url string) error {
-		os.Remove(fileName)
-		file, err := os.OpenFile(fileName, os.O_CREATE|os.O_RDWR|os.O_TRUNC, fs.ModePerm)
-		if err != nil {
-			return err
-		}
-		defer file.Close()
-		resp, err := http.Get(url)
-		if err != nil {
-			return err
-		}
-		defer resp.Body.Close()
-		if resp.StatusCode != http.StatusOK {
-			return fmt.Errorf("download file failed: %s", resp.Status)
-		}
-		_, err = io.Copy(file, resp.Body)
+	err = copyZipFile("xray", xray.GetBinaryPath())
+	if err != nil {
 		return err
 	}
 
-	copyFiles := map[string]string{
-		"xray":        xray.GetBinaryPath(),
-		"geosite.dat": xray.GetGeositePath(),
-		"geoip.dat":   xray.GetGeoipPath(),
-	}
-
-	downloadFiles := map[string]string{
-		xray.GetIranPath(): "https://github.com/MasterKia/iran-hosted-domains/releases/latest/download/iran.dat",
-	}
-
-	for fileName, filePath := range copyFiles {
-		err := copyZipFile(fileName, filePath)
-		if err != nil {
-			return err
-		}
-	}
-
-	for fileName, filePath := range downloadFiles {
-		err := downloadFile(fileName, filePath)
-		if err != nil {
-			return err
-		}
-	}
-
 	return nil
+
 }
 
 func (s *ServerService) GetLogs(count string, level string, syslog string) []string {
@@ -464,6 +427,11 @@ func (s *ServerService) GetConfigJson() (interface{}, error) {
 }
 
 func (s *ServerService) GetDb() ([]byte, error) {
+	// Update by manually trigger a checkpoint operation
+	err := database.Checkpoint()
+	if err != nil {
+		return nil, err
+	}
 	// Open the file for reading
 	file, err := os.Open(config.GetDBPath())
 	if err != nil {

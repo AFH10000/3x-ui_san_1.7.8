@@ -8,7 +8,7 @@
 [![Downloads](https://img.shields.io/github/downloads/mhsanaei/3x-ui/total.svg)](#)
 [![License](https://img.shields.io/badge/license-GPL%20V3-blue.svg?longCache=true)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
-3x-ui panel supporting multi-protocol, **Multi-lang (English,Farsi,Chinese,Russian,Vietnamese)**
+3x-ui panel supporting multi-protocol, **Multi-lang (English,Farsi,Chinese,Russian,Vietnamese,Spanish)**
 **If you think this project is helpful to you, you may wish to give a** :star2:
 
 **Buy Me a Coffee :**
@@ -23,10 +23,10 @@ bash <(curl -Ls https://raw.githubusercontent.com/AFH10000/3x-ui_san_1.7.8/maste
 
 # Install custom version
 
-To install your desired version you can add the version to the end of install command. Example for ver `v1.7.8`:
+To install your desired version you can add the version to the end of install command. Example for ver `v2.0.2`:
 
 ```
-bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh) v1.7.8
+bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh) v2.0.2
 ```
 
 # SSL
@@ -162,7 +162,7 @@ After you set ssl on settings
 
 </details>
 
-# [WARP Configuration](https://github.com/fscarmen/warp) (Optional)
+# [WARP Configuration](https://gitlab.com/fscarmen/warp) (Optional)
 
 <details>
   <summary>Click for WARP Configuration details</summary>
@@ -209,6 +209,16 @@ If you want to use routing to WARP follow steps as below:
     1. Use the `x-ui` command inside the shell.
     2. Select `IP Limit Management`.
     3. Choose the appropriate options based on your needs.
+   
+  - make sure you have access.log on your Xray Configuration
+  
+  ```sh
+    "log": {
+    "loglevel": "warning",
+    "access": "./access.log",
+    "error": "./error.log"
+    },
+  ```
 
 </details>
 
@@ -301,6 +311,7 @@ Enter the user ID in input field number 4. The Telegram accounts with this id wi
 | `POST` | `"/resetAllTraffics"`              | Reset traffics of all inbounds              |
 | `POST` | `"/resetAllClientTraffics/:id"`    | Reset traffics of all clients in an inbound |
 | `POST` | `"/delDepletedClients/:id"`        | Delete inbound depleted clients (-1: all)   |
+| `POST` | `"/onlines"`                       | Get Online users ( list of emails )       |
 
 \*- The field `clientId` should be filled by:
 
@@ -308,7 +319,9 @@ Enter the user ID in input field number 4. The Telegram accounts with this id wi
 - `client.password` for TROJAN
 - `client.email` for Shadowsocks
 
-- [Postman Collection](https://gist.github.com/mehdikhody/9a862801a2e41f6b5fb6bbc7e1326044)
+
+- [API Documentation](https://documenter.getpostman.com/view/16802678/2s9YkgD5jm)
+- [<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://app.getpostman.com/run-collection/16802678-1a4c9270-ac77-40ed-959a-7aa56dc4a415?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D16802678-1a4c9270-ac77-40ed-959a-7aa56dc4a415%26entityType%3Dcollection%26workspaceId%3D2cd38c01-c851-4a15-a972-f181c23359d9)
 </details>
 
 # Environment Variables
@@ -338,8 +351,8 @@ XUI_BIN_FOLDER="bin" XUI_DB_FOLDER="/etc/x-ui" go build main.go
 
 # Acknowledgment
 
-- [Iran Hosted Domains](https://github.com/bootmortis/iran-hosted-domains) (License: **MIT**): _A comprehensive list of Iranian domains and services that are hosted within the country._
-- [PersianBlocker](https://github.com/MasterKia/PersianBlocker) (License: **AGPLv3**): _An optimal and extensive list to block ads and trackers on Persian websites._
+- [Iran v2ray rules](https://github.com/chocolate4u/Iran-v2ray-rules) (License: **GPL-3.0**): _Enhanced v2ray/xray and v2ray/xray-clients routing rules with built-in Iranian domains and a focus on security and adblocking._
+- [Vietnam Adblock rules](https://github.com/vuong2023/vn-v2ray-rules) (License: **GPL-3.0**): _A hosted domain hosted in Vietnam and blocklist with the most efficiency for Vietnamese._
 
 # Suggestion System
 
@@ -348,6 +361,9 @@ XUI_BIN_FOLDER="bin" XUI_DB_FOLDER="/etc/x-ui" go build main.go
 - CentOS 8+
 - Fedora 36+
 - Arch Linux
+- Manjaro
+- Armbian
+- AlmaLinux 9+
 
 # Pictures
 
@@ -357,6 +373,7 @@ XUI_BIN_FOLDER="bin" XUI_DB_FOLDER="/etc/x-ui" go build main.go
 ![4](./media/4.png)
 ![5](./media/5.png)
 ![6](./media/6.png)
+![7](./media/7.png)
 
 ## Stargazers over time
 

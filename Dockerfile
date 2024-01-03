@@ -1,10 +1,11 @@
 # ========================================================
 # Stage: Builder
 # ========================================================
-FROM --platform=$BUILDPLATFORM golang:alpine AS builder
+FROM --platform=$BUILDPLATFORM golang:1.21-alpine AS builder
 WORKDIR /app
 ARG TARGETARCH
 ENV CGO_ENABLED=1
+ENV CGO_CFLAGS="-D_LARGEFILE64_SOURCE"
 
 RUN apk --no-cache --update add \
   build-base \
